@@ -1,29 +1,30 @@
 package com.opstty.job;
 
 
-import com.opstty.mapper.DistinctMapper;
-import com.opstty.reducer.DistinctReducer;
+import com.opstty.mapper.KindMapper;
+import com.opstty.reducer.IntSumReducer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class Distinct {
+public class KindCount {
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
-            System.err.println("Usage: distinct <input path> <output path>");
+            System.err.println("Usage: kindcount <input path> <output path>");
             System.exit(-1);
         }
 
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "distinct");
-        job.setJarByClass(Distinct.class);
-        job.setMapperClass(DistinctMapper.class);
-        job.setReducerClass(DistinctReducer.class);
+        Job job = Job.getInstance(conf, "kindcount");
+        job.setJarByClass(KindCount.class);
+        job.setMapperClass(KindMapper.class);
+        job.setReducerClass(IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

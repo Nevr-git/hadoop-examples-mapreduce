@@ -1,7 +1,5 @@
 package com.opstty.job;
 
-
-import com.opstty.mapper.DistinctMapper;
 import com.opstty.mapper.SpeciesMapper;
 import com.opstty.reducer.DistinctReducer;
 
@@ -15,12 +13,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Species {
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
-            System.err.println("Usage: DistinctTrees <input path> <output path>");
+            System.err.println("Usage: species <input path> <output path>");
             System.exit(-1);
         }
 
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "Species");
+        Job job = Job.getInstance(conf, "species");
         job.setJarByClass(Species.class);
         job.setMapperClass(SpeciesMapper.class);
         job.setReducerClass(DistinctReducer.class);

@@ -3,6 +3,7 @@ package com.opstty;
 import com.opstty.job.WordCount;
 import com.opstty.job.Distinct;
 import com.opstty.job.Species;
+import com.opstty.job.KindCount;
 import org.apache.hadoop.util.ProgramDriver;
 
 public class AppDriver {
@@ -17,6 +18,8 @@ public class AppDriver {
                     "A map/reduce program that outputs the distinct tree names in the input files.");
             programDriver.addClass("species", Species.class,
                     "A map/reduce program that outputs the distinct species in the input files.");
+            programDriver.addClass("kindcount", KindCount.class,
+                    "A map/reduce program that counts the number of trees by kind in the input files.");
 
             exitCode = programDriver.run(argv);
         } catch (Throwable throwable) {
